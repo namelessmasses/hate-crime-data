@@ -1,0 +1,4 @@
+*.zip
+hate_crime/
+hate_crime_expanded.csv
+.ipynb_checkpoints/

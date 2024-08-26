@@ -33,4 +33,4 @@ The repository provides a Python script, `convert.py`, to convert the CSV to mul
 The `offense_name` column contains a semi-colon separated list of offenses.
 
 ## Column: bias_desc
-The `bias_desc` column contains a semi-colon separated list of bias classes of victim(s).
+The `bias_desc` column contains a semi-colon separated list of bias classes of offenders against victim(s).

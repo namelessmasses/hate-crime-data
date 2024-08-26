@@ -1,8 +1,27 @@
 import pandas as pd
 from itertools import product
+import zipfile
+
+with zipfile.ZipFile('hate_crime.zip') as zf:
+    print('Extracting hate_crime.csv from hate_crime.zip')
+    hate_crime_csv = zf.extract('hate_crime/hate_crime.csv')
+    print('Extracted {}'.format(hate_crime_csv))
 
 # Step 1: Load the CSV file into a DataFrame
-df = pd.read_csv('hate_crime_source.csv')
+print('Reading dataframe from {}'.format(hate_crime_csv))
+df = pd.read_csv(hate_crime_csv)
+print('Dataframe loaded successfully')
+print('Original data contains {} rows'.format(len(df)))
+
+# Count the number of rows in the original data
+n_total_rows_processed = 0
+
+# Count the number of rows that were expanded
+# i.e., sum of the number of rows generated for each row that was expanded.
+n_total_rows_expanded = 0
+
+# Count the total number of expanded rows in the output data (i.e., )
+n_expanded_rows = 0
 
 # Step 2: Function to split offense_name and bias_desc, and generate Cartesian product
 def split_and_expand(row):
@@ -11,7 +30,17 @@ def split_and_expand(row):
     
     # Generate the Cartesian product of offenses and biases
     combinations = list(product(offenses, biases))
-    
+
+    global n_total_rows_processed
+    global n_total_rows_expanded
+    global n_expanded_rows
+    n_total_rows_processed = n_total_rows_processed + 1
+    percent_10ths = int(n_total_rows_processed / len(df) * 1000)
+    if percent_10ths % 10 == 0:
+        print('\r{}% complete'.format(int(percent_10ths / 10)), end='')
+    n_total_rows_expanded = n_total_rows_expanded + [0, 1][len(combinations) > 1]
+    n_expanded_rows = n_expanded_rows + [0, len(combinations)][len(combinations) > 1]
+          
     # Create a DataFrame for each combination
     return pd.DataFrame({
         'incident_id': [row['incident_id']] * len(combinations),
@@ -44,10 +73,22 @@ def split_and_expand(row):
         'multiple_bias': [row['multiple_bias']] * len(combinations)
     })
 
+print('Processing data...')
 # Step 3: Apply the function to each row and concatenate the results
 df_expanded = pd.concat([split_and_expand(row) for _, row in df.iterrows()], ignore_index=True)
+print('\nData processed successfully')
+print('Processed {} rows'.format(n_total_rows_processed))
+print('Expanded {} rows'.format(n_total_rows_expanded))
+print('Expanded by {} rows'.format(n_expanded_rows))
+print('Expanded data contains {} rows'.format(len(df_expanded)))
+print('Consistency check: {} - {} + {} = {}'.format(len(df_expanded), n_expanded_rows, n_total_rows_expanded, len(df)))
+if (len(df_expanded) == len(df) - n_total_rows_expanded + n_expanded_rows):
+    print('Consistency check passed')
+else:
+    raise ValueError('Consistency check failed')
 
 # Step 4: Save the result back to a CSV file
+print('Saving the output to hate_crime_expanded.csv')
 df_expanded.to_csv('hate_crime_expanded.csv', index=False)
 
 print("Data processing complete. The output is saved as 'hate_crime_expanded.csv'.")

@@ -23,4 +23,4 @@
     "remoteUser": "jovyan",
 
     // Command to run after the container starts, specifying the port
-    "postStartCommand": "nohup jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --notebook-dir=/home/jovyan/work --port=8888 & sleep 5 && export JUPYTER_SERVER_URI=http://127.0.0.1:8888?token=$(jupyter notebook list | grep -oP 'token=\K[^ ]+')"}
+    "postStartCommand": "nohup jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --notebook-dir=/home/jovyan/work --port=8888 & sleep 5 && export JUPYTER_SERVER_URI=http://127.0.0.1:8888?token=$(jupyter notebook list | grep -oP 'token=\\K[^ ]+')"}

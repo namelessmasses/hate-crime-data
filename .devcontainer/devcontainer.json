@@ -1,4 +1,3 @@
-// .devcontainer/devcontainer.json
 {
     "name": "Jupyter Data Science Notebook",
     "image": "jupyter/datascience-notebook:latest",
@@ -16,6 +15,10 @@
     // Mount your project folder to the workspace
     "workspaceFolder": "/home/jovyan/work",
 
-    // Start the container as the default Jupyter user
+    // Mount the host folder into the container
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/home/jovyan/work,type=bind"
+    ],
+
     "remoteUser": "jovyan"
 }

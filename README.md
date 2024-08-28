@@ -34,3 +34,7 @@ The `offense_name` column contains a semi-colon separated list of offenses.
 
 ## Column: bias_desc
 The `bias_desc` column contains a semi-colon separated list of bias classes of offenders against victim(s).
+
+# Support for VSCode DevContainers
+
+The repository supports development using VSCode DevContainers. The repository contains a `.devcontainer` directory with a `devcontainer.json` file. The devcontainer sets up the correct container in order to run Jupyter, and installs the necessary Python packages to run the `convert.py` script. Cloning the repository and opening the clone folder on the host in a devcontainer, or having the devcontainer clone the repository should provide a fully functional Jupyter Datascience Notebook development environment.

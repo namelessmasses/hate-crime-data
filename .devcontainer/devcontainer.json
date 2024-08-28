@@ -1,0 +1,21 @@
+// .devcontainer/devcontainer.json
+{
+    "name": "Jupyter Data Science Notebook",
+    "image": "jupyter/datascience-notebook:latest",
+    "runArgs": ["--init", "-p", "8888:8888"],
+
+    // Optional: VS Code extensions to install
+    "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+    ],
+
+    // Forward the port for Jupyter Notebook
+    "forwardPorts": [8888],
+
+    // Mount your project folder to the workspace
+    "workspaceFolder": "/home/jovyan/work",
+
+    // Start the container as the default Jupyter user
+    "remoteUser": "jovyan"
+}

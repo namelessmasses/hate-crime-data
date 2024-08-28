@@ -46,5 +46,6 @@ The repository supports development using VSCode DevContainers. The repository c
 1. Open a terminal in VSCode.
 1. Run `python convert.py` to convert the CSV file to a new CSV file with the semi-colon separated values converted to multiple rows.
 1. Select the VSCode terminal session `Configuring...` and look for the Jupyter Notebook URL to open in a browser. E.g., ` http://127.0.0.1:8888/tree?token=e56c6b057bfcd902abbf1b93cd5e005f37059d1c2bcb2f5d`. Copy this URL.
+    1. If no `Configuring...` terminal session exists, then run `jupyter notebook list` and copy the URL.
 1. Open the Jupyter Notebook `HateCrime.ipynb`.
 1. If VSCode does not detect the correct kernel, then Selecting the Kernel menu, and selecting the `Existing Kernel` option, and pasting the URL copied in the previous step should allow the Jupyter Notebook to run in the correct kernel.

@@ -20,5 +20,8 @@
         "source=${localWorkspaceFolder},target=/home/jovyan/work,type=bind"
     ],
 
-    "remoteUser": "jovyan"
+    "remoteUser": "jovyan",
+
+       // Command to run after the container starts, specifying the port
+    "postStartCommand": "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --notebook-dir=/home/jovyan/work --port=8888"
 }
